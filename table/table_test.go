@@ -65,6 +65,8 @@ func test(tableFunction func(string) string) bool {
 }
 
 
+// 通过如下方式进行测试。
+// 复制这个函数，并且吧test(xxx)中的参数改为你的函数，这个函数必须是输入string，输出string
 func TestJialou(t *testing.T) {
 	if !test(tableJialou) {
 		t.Error("some case error")

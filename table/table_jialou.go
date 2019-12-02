@@ -48,7 +48,6 @@ func caculateScore(input string, scorePoint int) string {
 
 func tableJialou(input string) string {
 	var b bytes.Buffer
-	//fmt.Println(input)
 	b.WriteString(caculateScore(input, 11))
 	b.WriteString("\n")
 	b.WriteString(caculateScore(input, 21))
