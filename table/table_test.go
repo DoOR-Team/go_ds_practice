@@ -1,4 +1,4 @@
-package main
+package table
 
 import (
 	"bytes"
@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 	"strings"
+	"testing"
 )
 
 /*
@@ -34,59 +35,9 @@ WWLWE
 2:1
  */
 
-func max(a, b int) int {
-	if a > b {
-		return a
-	} else {
-		return b
-	}
-}
-
-func abs (a int) int  {
-	if a > 0 {
-		return a
-	} else {
-		return -a
-	}
-}
-
-func caculateScore(input string, scorePoint int) string {
-	var b bytes.Buffer
-	var my, your int
-	my = 0
-	your = 0
-	for _, ch := range input {
-		switch ch {
-		case 'E':
-			b.WriteString(fmt.Sprintf("%d:%d\n", my, your))
-			break
-		case 'W':
-			my ++
-		case 'L':
-			your ++
-		}
-		if max(my, your) >= scorePoint && abs(my - your) >= 2 {
-			b.WriteString(fmt.Sprintf("%d:%d\n", my, your))
-			my = 0
-			your = 0
-		}
-	}
-	return b.String()
-
-}
-
-func table(input string) string {
-	var b bytes.Buffer
-	//fmt.Println(input)
-	b.WriteString(caculateScore(input, 11))
-	b.WriteString("\n")
-	b.WriteString(caculateScore(input, 21))
-	return b.String()
-}
-
-
-func main() {
-	dir := "/Users/jpbirdy/Workspaces/go/src/gitlab.hz-xuelang.xyz/xuelang_algo/go_practice/table/"
+func test(tableFunction func(string) string) bool {
+	ret := true
+	dir := "./"
 
 	for i:=0; i<10; i++ {
 		fmt.Printf("case %d\n", i)
@@ -95,7 +46,7 @@ func main() {
 		inf, _ := os.Open(inputfile)
 		ansf, _ := os.Open(answerfile)
 		buf, _ := ioutil.ReadAll(inf)
-		myAnswer := table(bytes.NewBuffer(buf).String())
+		myAnswer := tableFunction(bytes.NewBuffer(buf).String())
 		buf, _ = ioutil.ReadAll(ansf)
 		answer := strings.Replace(bytes.NewBuffer(buf).String(),"\r\n", "\n",  -1)
 
@@ -107,7 +58,15 @@ func main() {
 			fmt.Println(myAnswer)
 			fmt.Println("answer")
 			fmt.Println(answer)
+			ret = false
 		}
 	}
+	return ret
+}
 
+
+func TestJialou(t *testing.T) {
+	if !test(tableJialou) {
+		t.Error("some case error")
+	}
 }
