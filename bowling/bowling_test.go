@@ -86,3 +86,10 @@ func TestJialou(t *testing.T) {
 		t.Error("some case error")
 	}
 }
+// 通过如下方式进行测试。
+// 复制这个函数，并且吧test(xxx)中的参数改为你的函数，这个函数必须是输入string，输出string
+func TestXXXX(t *testing.T) {
+	if !test(bowlingCHANGYUAN) {
+		t.Error("some case error")
+	}
+}
