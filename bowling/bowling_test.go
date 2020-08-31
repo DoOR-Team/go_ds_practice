@@ -47,13 +47,13 @@ import (
 样例输出：
     30   27  19    9   18    9   20   20   20   20
 30   57  76   85  103  112  132  152  172  192
- */
+*/
 
 func test(bowlingFunction func(string) string) bool {
 	ret := true
 	dir := "./"
 
-	for i:=1; i<=6; i++ {
+	for i := 1; i <= 6; i++ {
 		fmt.Printf("case %d\n", i)
 		inputfile := fmt.Sprintf("%sbowling/bowling%d.in", dir, i)
 		answerfile := fmt.Sprintf("%sbowling/bowling%d.out", dir, i)
@@ -62,7 +62,7 @@ func test(bowlingFunction func(string) string) bool {
 		buf, _ := ioutil.ReadAll(inf)
 		myAnswer := bowlingFunction(bytes.NewBuffer(buf).String())
 		buf, _ = ioutil.ReadAll(ansf)
-		answer := strings.Replace(bytes.NewBuffer(buf).String(),"\r\n", "\n",  -1)
+		answer := strings.Replace(bytes.NewBuffer(buf).String(), "\r\n", "\n", -1)
 
 		if strings.Compare(answer, myAnswer) == 0 {
 			fmt.Println("ok")
@@ -78,7 +78,6 @@ func test(bowlingFunction func(string) string) bool {
 	return ret
 }
 
-
 // 通过如下方式进行测试。
 // 复制这个函数，并且吧test(xxx)中的参数改为你的函数，这个函数必须是输入string，输出string
 func TestJialou(t *testing.T) {
@@ -86,10 +85,11 @@ func TestJialou(t *testing.T) {
 		t.Error("some case error")
 	}
 }
+
 // 通过如下方式进行测试。
 // 复制这个函数，并且吧test(xxx)中的参数改为你的函数，这个函数必须是输入string，输出string
-func TestXXXX(t *testing.T) {
-	if !test(bowlingCHANGYUAN) {
-		t.Error("some case error")
-	}
-}
+// func TestXXXX(t *testing.T) {
+// 	if !test(bowlingCHANGYUAN) {
+// 		t.Error("some case error")
+// 	}
+// }
